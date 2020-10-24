@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CategoriresRowWidget extends StatelessWidget {
+class CategoriresRowWidget extends StatefulWidget {
+  @override
+  _CategoriresRowWidgetState createState() => _CategoriresRowWidgetState();
+}
+
+class _CategoriresRowWidgetState extends State<CategoriresRowWidget> {
   final List<Map<String, dynamic>> _cat = [
     {'name': 'Latest', 'isSelected': false},
     {'name': 'Trending', 'isSelected': false},
@@ -13,26 +18,35 @@ class CategoriresRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (BuildContext ctx, int index) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              _cat[index]['name'],
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-            ),
-            _cat[index]['isSelected']
-                ? DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      color: Colors.blue,
-                    ),
-                    child: SizedBox(
-                      width: 10.0,
-                      height: 10.0,
-                    ),
-                  )
-                : Container(),
-          ],
+        return GestureDetector(
+          onTap: () {
+            _cat.forEach((element) {
+              element['isSelected'] = false;
+            });
+            _cat[index]['isSelected'] = true;
+            setState(() {});
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                _cat[index]['name'],
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+              ),
+              _cat[index]['isSelected']
+                  ? DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.0),
+                        color: Colors.blue,
+                      ),
+                      child: SizedBox(
+                        width: 10.0,
+                        height: 10.0,
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
         );
       },
       itemCount: _cat.length,

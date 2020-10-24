@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_feed/screens/categorie_page_view/categorie_card.dart';
 import 'package:news_feed/screens/home_page_view/home_page_screen.dart';
 
 void main() {
@@ -33,19 +34,68 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  PageController _controller = PageController();
+
+  // Map<String,bool> activeIcons = {'home': true, 'categories': false, 'bookmarks': false};
+
+  int _currentTab = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
+        currentIndex: _currentTab,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.backspace_outlined,),label: '',),
-          BottomNavigationBarItem(icon: Icon(Icons.menu),label: ''),
+          BottomNavigationBarItem(
+            backgroundColor: _currentTab == 0 ? Colors.green : Colors.grey,
+            icon: IconButton(
+                icon: Icon(Icons.backspace_outlined,color: _currentTab == 0 ? Colors.green : Colors.grey,), onPressed: () {
+                  _currentTab = 0;
+                  _controller.jumpToPage(0);
+                  setState(() {
+
+                  });
+            }),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: _currentTab == 1 ? Colors.green : Colors.grey,
+            icon: IconButton(icon: Icon(Icons.menu,color: _currentTab == 1 ? Colors.green : Colors.grey,), onPressed: () {
+              _currentTab = 1;
+              _controller.jumpToPage(1);
+              setState(() {});
+            }),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+              icon: IconButton(
+                  icon: Icon(Icons.bookmark_border,color: _currentTab == 2 ? Colors.green : Colors.grey,), onPressed: () {
+                _currentTab = 2;
+                _controller.jumpToPage(2);
+                setState(() {});
+              }),
+              label: ''),
         ],
       ),
       body: SafeArea(
-        child: HomePageScreen(),
+        child: PageView(
+          controller: _controller,
+          children: [
+            HomePageScreen(),
+            CategorieCard(),
+            Container(
+              color: Colors.yellow,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+          ],
+        ),
       ),
     );
   }
