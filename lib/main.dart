@@ -37,6 +37,13 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.backspace_outlined,),label: '',),
+          BottomNavigationBarItem(icon: Icon(Icons.menu),label: ''),
+        ],
+      ),
       body: SafeArea(
         child: HomePageScreen(),
       ),
