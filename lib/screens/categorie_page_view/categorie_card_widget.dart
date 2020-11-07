@@ -4,31 +4,51 @@ class CategorieCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.bottomCenter,
       width: double.infinity,
-      height: 300.0,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0),),
-      // color: Colors.blue,
-      child: ClipRRect(
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      height: 200.0,
+      decoration: BoxDecoration(
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(20.0),
-        child: Stack(children: [
-          Image.asset(
-            'assets/images/lifestyle.jpg',
-            fit: BoxFit.cover,
+        image: DecorationImage(
+          image: AssetImage('assets/images/lifestyle.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      // color: Colors.blue,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0.0,
-            child: Row(
-              children: [
-                Text('LifeStyle'),
-                Spacer(),
-                Text('234 News'),
-              ],
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 10.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'LifeStyle',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Big Text',
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold),
             ),
-          )
-        ]),
+            Text(
+              '458 News',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18.0,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
